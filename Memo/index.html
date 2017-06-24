@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <meta name="Author" content="Andrzej Globisz">
+      <meta name="Description" content="Memo Game">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Memo game</title>
+
+    <link href="styles/styles.css" type="text/css" rel="stylesheet">
+      <link rel="stylesheet" href="styles/jquery-ui.css">
+
+  </head>
+  <header>
+      <h1>MEMO</h1>
+
+  </header>
+  <body>
+
+        <div class="board boardM">
+        <nav>
+            <div>
+            <button id="navButtonStart" class="navButton navButtonM">NEW GAME</button>
+            </div>
+
+            <div>
+            <button id="navButtonPause" class="navButton navButtonM">PAUSE</button>
+            </div>
+
+            <div>
+                <label for="sizeInput"><strong>SELECT SIZE:</strong></label>
+                <input id="sizeInput" name="sizeInput sizeInputM" min="4" max="14" value="4" step="2">
+
+            </div>
+            
+            <div class="results resultsM">
+                <p id="pTries">TRIES: 0</p>
+                <p id="pProgress">PROGRESS: 0</p>
+                <p  id="pTime">TIME: 0</p>
+            </div>
+        </nav>
+
+        <canvas id="canvas" class="canvas canvasM" width="500px" height="500px"></canvas>
+            <h1 id="captionVictory">VICTORY!</h1>
+        </div>
+
+  </body>
+  <script src='scripts/jquery.js'></script>
+  <script src='scripts/jquery-ui.js'></script>
+
+  <script src='scripts/main.js'></script>
+
+</html>
