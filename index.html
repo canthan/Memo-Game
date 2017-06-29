@@ -6,8 +6,10 @@
       <meta name="Description" content="Memo Game">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Memo game</title>
+
     <link href="styles/styles.css" type="text/css" rel="stylesheet">
-    
+      <link rel="stylesheet" href="styles/jquery-ui.css">
+
   </head>
   <header>
       <h1>MEMO</h1>
@@ -26,8 +28,9 @@
             </div>
 
             <div>
-                <label for="sizeInput"><strong>SIZE:</strong></label>
-                <input type="number" id="sizeInput" name="sizeInput sizeInputM" min="2" max="14" value="4" step="2">
+                <label for="sizeInput"><strong>SELECT SIZE:</strong></label>
+                <input id="sizeInput" name="sizeInput sizeInputM" min="4" max="14" value="4" step="2">
+
             </div>
             
             <div class="results resultsM">
@@ -42,5 +45,9 @@
         </div>
 
   </body>
+  <script src='scripts/jquery.js'></script>
+  <script src='scripts/jquery-ui.js'></script>
+
   <script src='scripts/main.js'></script>
+
 </html>
