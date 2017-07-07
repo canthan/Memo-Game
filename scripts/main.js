@@ -27,77 +27,63 @@
     }
 
 //=================================== FIELD OBJECT ================================================
-    function Field(rnd, x, number, color, covered, fieldSize) {
-        this.rnd = rnd;
-        this.x = x;
-        this.number = number;
-        this.color = color;
-        this.covered = covered;
-        this.fieldSize = fieldSize;
-
-        this.getRnd = function(){
-            return this.rnd;
-        };
-        this.getX = function(){
-            return this.x;
-        };
-        this.setX = function(x){
+    class Field {
+        constructor(rnd, x, number, color, covered, fieldSize){        
+            this.rnd = rnd;
             this.x = x;
-        };
-        this.getNumber = function(){
-            return this.number;
-        };
-        this.getColor = function(){
-            return this.color;
-        };
-        this.getCovered = function(){
-            return this.covered;
-        };
-        this.setCovered = function(covered){
+            this.number = number;
+            this.color = color;
             this.covered = covered;
-        };
-        this.getFieldSize = function(){
-            return this.fieldSize;
-        };
+            this.fieldSize = fieldSize;
+        }
+        get getRnd() {return this.rnd;}
+        get getX() {return this.x;}
+        get getNumber() {return this.number;}
+        get getColor() {return this.color;}
+        get getCovered() {return this.covered;}
+        get getFieldSize() {return this.fieldSize;}
+
+        set setX(x) {this.x = x;}
+        set setCovered(covered) {this.covered = covered;} 
     }
 
 //=================================== CALCULATE FIELD POSITION ================================================
     Field.prototype.calcX = function () {
-        return (this.getX() % size * this.getFieldSize());
+        return (this.getX % size * this.getFieldSize);
     }
 
     Field.prototype.calcY = function () {
-        return (Math.floor(this.getX() / size) * this.getFieldSize());
+        return (Math.floor(this.getX / size) * this.getFieldSize);
     }
 //=================================== DRAW FIELDS ================================================
     Field.prototype.draw = function () {
-        if (this.getCovered() === false) {
+        if (this.getCovered === false) {
             ctx.beginPath();
-            ctx.fillStyle = this.getColor();
+            ctx.fillStyle = this.getColor;
             ctx.rect(this.calcX(),
                 this.calcY(),
-                this.getFieldSize(),
-                this.getFieldSize());
+                this.getFieldSize,
+                this.getFieldSize);
             ctx.fill();
         }
         //DRAW BORDERS BETWEEN FIELDS
         ctx.beginPath();
         ctx.rect(this.calcX(),
             this.calcY(),
-            this.getFieldSize(),
-            this.getFieldSize());
+            this.getFieldSize,
+            this.getFieldSize);
         ctx.stroke();
     }
 //=================================== DRAW NUMBERS OF FIELDS ================================================
     Field.prototype.drawNumber = function () {
-        let positionX = 2.8;
-        let positionY = 1.6;
-        if (this.getCovered() === false) {
+        const POSITION_X = 2.8;
+        const POSITION_Y = 1.6;
+        if (this.getCovered === false) {
             ctx.fillStyle = 'black';
-            ctx.font = this.getFieldSize() / 2 + "px Calibri";
-            ctx.fillText(this.getNumber(),
-                this.calcX() + this.getFieldSize() / positionX,
-                this.calcY() + this.getFieldSize() / positionY);
+            ctx.font = this.getFieldSize / 2 + "px Calibri";
+            ctx.fillText(this.getNumber,
+                this.calcX() + this.getFieldSize / POSITION_X,
+                this.calcY() + this.getFieldSize / POSITION_Y);
         }
     }
 //=================================== CREATING FIELDS ================================================
@@ -119,7 +105,7 @@
                     Math.random(),
                     i - 1,
                     (i + i % 2) / 2,
-                    fields[i - 2].getColor(),
+                    fields[i - 2].getColor,
                     true,
                     canvas.width / size
                 );
@@ -132,10 +118,10 @@
 //=================================== SHUFFLE FIELDS ================================================
     function setOrder() {
         fields.sort(function (a, b) {
-            return a.getRnd() - b.getRnd();
+            return a.getRnd - b.getRnd;
         })
         for (var i = 0; i < fields.length; i++) {
-            fields[i].setX(i);
+            fields[i].setX = i;
         }
     }
 
@@ -145,9 +131,9 @@
         var this2 = 0;
         for (var i = 0; i < fields.length; i++) {
             if (!gameStopped) {
-                if ((fields[i].calcX() < mouseX) && ((fields[i].calcX() + fields[i].getFieldSize()) > mouseX)) {
+                if ((fields[i].calcX() < mouseX) && (fields[i].calcX() + fields[i].getFieldSize > mouseX)) {
 
-                    if ((fields[i].calcY() < mouseY) && ((fields[i].calcY() + fields[i].getFieldSize()) > mouseY)) {
+                    if ((fields[i].calcY() < mouseY) && (fields[i].calcY() + fields[i].getFieldSize > mouseY)) {
 
                         switch (checker) {
                             case 0://FIRST CLICK - FIRST FIELD
@@ -171,8 +157,8 @@
 //=================================== FIRST CLICK - FIRST FIELD
     function uncoverCase0(i) {
 
-        if (fields[i].getCovered()) {
-            fields[i].setCovered(false);
+        if (fields[i].getCovered) {
+            fields[i].setCovered = false;
             updateTries();
             refresh();
             this1 = fields[i];
@@ -182,15 +168,15 @@
 
 //=================================== SECOND CLICK - SECOND FIELD
     function uncoverCase1(i) {
-        if (fields[i].getCovered()) {
-            fields[i].setCovered(false);
+        if (fields[i].getCovered) {
+            fields[i].setCovered = false;
             updateTries();
             this2 = fields[i];
             refresh();
 
-            if (this1.getNumber() !== this2.getNumber()) {
-                this1.setCovered(true);
-                this2.setCovered(true);
+            if (this1.getNumber !== this2.getNumber) {
+                this1.setCovered = true;
+                this2.setCovered = true;
                 checker = 2;
             }
             else {
@@ -206,19 +192,19 @@
 
 //=================================== THIRD CLICK
     function uncoverCase2() {
-        this1.setCovered(true);
-        this2.setCovered(true);
+        this1.setCovered = true;
+        this2.setCovered = true;
         refresh();
         checker = 0;
     }
 
 //=================================== MOUSE POSITION ================================================
     function getPosition(e) {
-        const canvasSize = 500;
-        const canvasWithBorder = 506;
-        if (window.innerWidth < canvasWithBorder) {
-            mouseX = (e.pageX - canvas.offsetLeft) * canvasSize / window.innerWidth;
-            mouseY = (e.pageY - canvas.offsetTop) * canvasSize / window.innerWidth;
+        const CANVAS_SIZE = 500;
+        const CANVAS_WITH_BORDER = 506;
+        if (window.innerWidth < CANVAS_WITH_BORDER) {
+            mouseX = (e.pageX - canvas.offsetLeft) * CANVAS_SIZE / window.innerWidth;
+            mouseY = (e.pageY - canvas.offsetTop) * CANVAS_SIZE / window.innerWidth;
         }
         else {
             mouseX = e.pageX - canvas.offsetLeft;
@@ -277,7 +263,7 @@
         ctx.clearRect(0, 0, canvas.width, canvas.height);
         for (var i = 0; i < fields.length; i++) {
             fields.sort(function (a, b) {
-                return a.getRnd() - b.getRnd();
+                return a.getRnd - b.getRnd;
             });
             fields[i].draw();
             fields[i].drawNumber();
@@ -286,14 +272,17 @@
 
 //=================================== CHANGE BOARD SIZE ================================================
     function changeSize() {
-        size = Number(document.getElementById('sizeInput').value)
+        let MIN_SIZE = 4;
+        let MAX_SIZE = 12;
+                size = Number(document.getElementById('sizeInput').value)
 
-        if (isNaN(size) || size < 4 || size % 2 === 1){
-            size = 4;
+
+        if (isNaN(size) || size < MIN_SIZE || size % 2 === 1){
+            size = MIN_SIZE;
         }
 
-        if (size > 14){
-            size = 14;
+        if (size > MAX_SIZE){
+            size = MAX_SIZE;
         }
 
     }
